@@ -1,6 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 /*const cocktails = [];*/
 
@@ -25,8 +26,8 @@ function App() {
 
   if (!post) return null;
 
-  function ListFromArray(param) {
-    param.map((ingredient) => {
+  function ListFromArray(data) {
+    return data.param?.map((ingredient) => {
       return (
         <li>
           {ingredient.ingredientName} {ingredient.ingredientMeasurement}
@@ -46,10 +47,6 @@ function App() {
         var ingredient = `strIngredient${i}`;
         var measurement = `strMeasure${i}`;
 
-        if (drink[ingredient] == null) {
-          break;
-        }
-
         ingredientObj = {
           ingredientName: drink[ingredient],
           ingredientMeasurement: drink[measurement],
@@ -57,15 +54,16 @@ function App() {
 
         ingredientsArray.push(ingredientObj);
         console.log(ingredientsArray);
+
+        if (drink[ingredient] == null) {
+          ingredientsArray = [];
+          break;
+        }
       }
-      /*
-      <ul>
-              <ListFromArray param={ingredientsArray} />
-            </ul>
-      */
+
       return (
-        <div>
-          <p className="cocktailHeader">
+        <div class="row">
+          <p class="col" className="Cocktail-Header">
             <img
               style={imgStyle}
               src={drink.strDrinkThumb}
@@ -73,9 +71,12 @@ function App() {
             ></img>
             {drink.strDrink}
           </p>
-          <div className="cocktailIngredients"></div>
-
-          <p className="cocktailInstructions">{drink.strInstructions}</p>
+          <div class="col" className="Cocktail-Ingredients">
+            <ul className="Cocktail-List-Items">
+              <ListFromArray param={ingredientsArray} />
+            </ul>
+            <p className="Cocktail-Instructions">{drink.strInstructions}</p>
+          </div>
         </div>
       );
     });
@@ -87,10 +88,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>Cocktail Database</p>
-        <div>
-          <ul>
-            <CreateList />
-          </ul>
+        <div class="container-fluid" className="List-Container">
+          <CreateList />
         </div>
         <a
           className="App-link"

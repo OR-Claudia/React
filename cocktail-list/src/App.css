@@ -28,7 +28,20 @@
   color: #61dafb;
 }
 
-.Drink{
+.card-text{
+  color:black
+}
+
+.btn{
+  padding: 5%;
+  justify-content: center;
+}
+
+.CardText{
+  font-size:medium;
+}
+
+/*.Drink{
   max-width: 30%;
 }
 
@@ -44,7 +57,7 @@
 
 .Cocktail-List-Items{
   list-style: none;
-}
+}*/
 
 
 @keyframes App-logo-spin {

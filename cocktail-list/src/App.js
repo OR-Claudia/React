@@ -38,7 +38,6 @@ function App() {
 
   function CreateList() {
     console.log(post.length);
-    const imgStyle = { maxWidth: 100 };
     var ingredientsArray = [];
     var ingredientObj = {};
     //const textStyle = { textAlign: "left" };
@@ -60,22 +59,34 @@ function App() {
           break;
         }
       }
-
-      return (
-        <div class="row">
-          <p class="col" className="Cocktail-Header">
-            <img
-              style={imgStyle}
-              src={drink.strDrinkThumb}
-              alt={drink.strDrink}
-            ></img>
-            {drink.strDrink}
-          </p>
-          <div class="col" className="Cocktail-Ingredients">
-            <ul className="Cocktail-List-Items">
+      /*            <ul className="Cocktail-List-Items">
               <ListFromArray param={ingredientsArray} />
             </ul>
-            <p className="Cocktail-Instructions">{drink.strInstructions}</p>
+            <p className="Cocktail-Instructions">{drink.strInstructions}</p> */ // ingredients + instructions
+
+      return (
+        <div className="col">
+          <div className="card shadow-sm">
+            <svg width="100%" height="100%">
+              <image
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                xlinkHref={drink.strDrinkThumb}
+              ></image>
+              ;
+            </svg>
+            <div className="card-body">
+              <p className="card-text">
+                {drink.strDrink}
+                <p className="card-text CardText">
+                  Glass needed: {drink.strGlass}
+                </p>
+              </p>
+            </div>
+            <button className="btn btn-secondary btn-lg btn-block">View</button>
+            <div className="col"></div>
           </div>
         </div>
       );
@@ -87,18 +98,16 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Cocktail Database</p>
-        <div class="container-fluid" className="List-Container">
-          <CreateList />
+        <div className="row spacer">
+          <h1>Cocktail Database</h1>
         </div>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="album py-5 bg-light">
+          <div className="container">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <CreateList />
+            </div>
+          </div>
+        </div>
       </header>
     </div>
   );

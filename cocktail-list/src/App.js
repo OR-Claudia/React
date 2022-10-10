@@ -66,9 +66,10 @@ function App() {
 
       return (
         <div className="col">
-          <div className="card shadow-sm">
-            <svg width="100%" height="100%">
+          <div className="card shadow-sm pt-3">
+            <svg>
               <image
+                className=""
                 x="0"
                 y="0"
                 width="100%"
@@ -85,7 +86,9 @@ function App() {
                 </p>
               </p>
             </div>
-            <button className="btn btn-secondary btn-lg btn-block">View</button>
+            <button className="btn m-3 btn-secondary btn-lg btn-block ">
+              View
+            </button>
             <div className="col"></div>
           </div>
         </div>

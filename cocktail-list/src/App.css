@@ -29,16 +29,19 @@
 }
 
 .card-text{
+  font-size:x-large;
+  font-weight: bold;
   color:black
 }
 
 .btn{
-  padding: 5%;
+  padding: 10px;
   justify-content: center;
 }
 
 .CardText{
   font-size:medium;
+  font-weight: lighter;
 }
 
 /*.Drink{

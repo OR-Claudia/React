@@ -10,6 +10,7 @@ const cocktailURL =
 
 function App() {
   const [post, setPost] = React.useState(null);
+  const [isActive, setIsActive] = React.useState(false);
 
   React.useEffect(() => {
     axios
@@ -36,9 +37,16 @@ function App() {
     });
   }
 
+  function showCocktail() {}
+
+  const handleClick = (event) => {
+    setIsActive((current) => !current);
+  };
+
   function CreateList() {
     console.log(post.length);
     var ingredientsArray = [];
+
     var ingredientObj = {};
     //const textStyle = { textAlign: "left" };
     const cocktailList = post?.map((drink) => {
@@ -46,13 +54,14 @@ function App() {
         var ingredient = `strIngredient${i}`;
         var measurement = `strMeasure${i}`;
 
+        var classNamesCard = `card shadow-sm pt-3 ${drink.strDrink.toLowerCase}`;
+
         ingredientObj = {
           ingredientName: drink[ingredient],
           ingredientMeasurement: drink[measurement],
         };
 
         ingredientsArray.push(ingredientObj);
-        console.log(ingredientsArray);
 
         if (drink[ingredient] == null) {
           ingredientsArray = [];
@@ -66,7 +75,7 @@ function App() {
 
       return (
         <div className="col">
-          <div className="card shadow-sm pt-3">
+          <div className={classNamesCard}>
             <svg>
               <image
                 className=""
@@ -86,7 +95,10 @@ function App() {
                 </p>
               </p>
             </div>
-            <button className="btn m-3 btn-secondary btn-lg btn-block ">
+            <button
+              onClick={handleClick}
+              className="btn m-3 btn-secondary btn-lg btn-block"
+            >
               View
             </button>
             <div className="col"></div>

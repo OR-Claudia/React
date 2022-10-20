@@ -13,6 +13,10 @@
   }
 }
 
+.classNamesCard{
+  position:absolute;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,10 +28,24 @@
   color: white;
 }
 
+.previewText{
+  font-size:small
+}
+
+image {
+  cursor:pointer;
+}
+
 .App-link {
   color: #61dafb;
 }
 
+.drink-id{
+  color:gray;
+  font-size: small;
+  margin: -10px;
+  align-items: right;
+}
 .card-text{
   font-size:x-large;
   font-weight: bold;

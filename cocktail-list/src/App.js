@@ -34,53 +34,45 @@ function App() {
 
   if (!drinkList) return null;
 
-  // function ListFromArray(data) {
-  //   return data.param?.map((ingredient) => {
-  //     return (
-  //       <li>
-  //         {ingredient.ingredientName} {ingredient.ingredientMeasurement}
-  //       </li>
-  //     );
-  //   });
-  // }
+  function GetIngredients({ cocktail }) {
+    var ingredientsArray = [];
+    var ingredientObj = {};
 
-  function GetIngredients(param) {
-    //continue writing here - use Post to find by ID
-    var cocktail = {};
-    var ingredient = {};
-    var drinkIngredients = [];
-    drinkList?.map((drink) => {
-      if (drink.idDrink === param) {
-        for (var i = 1; i < 15; i++) {
-          var ingredient = `strIngredient${i}`;
-          var measurement = `strMeasure${i}`;
+    console.log(cocktail);
 
-          ingredient = {
-            ingredientName: drink[ingredient],
-            ingredientMeasurement: drink[measurement],
-          };
+    for (var i = 1; i < 15; i++) {
+      var ingredient = `strIngredient${i}`;
+      var measurement = `strMeasure${i}`;
 
-          drinkIngredients.push(ingredient);
+      // console.log(cocktail[ingredient])
 
-          if (drink[ingredient] == null) {
-            break;
-          }
-        }
-        cocktail = {
-          cocktailID: param,
-          cocktailName: drink.strDrink,
-          cocktailIngredients: ingredient,
-          cocktailImgURL: drink.strDrinkThumb,
-          cocktailInstructions: drink.strInstructions,
-        };
-        console.log(cocktail);
-        return cocktail;
-      }
-    });
+      // if (cocktail[ingredient] == null) {
+      //   break;
+      // }
+
+      ingredientObj = {
+        ingredientName: cocktail[ingredient],
+        ingredientMeasurement: cocktail[measurement],
+      };
+
+      ingredientsArray.push(ingredientObj);
+    }
+    console.log(ingredientsArray);
+    return ingredientsArray
+      .filter(({ ingredientName }) => ingredientName !== null)
+      .map(({ ingredientName, ingredientMeasurement }) => (
+        <li key={ingredientName}>
+          {ingredientName} {ingredientMeasurement}
+        </li>
+      ));
   }
 
+  //modal-body contains the data with the ingredients
   function ShowPreview(cocktail) {
-    console.log(cocktail);
+    //const ingredients = GetIngredients(cocktail);
+
+    //console.log(ingredients);
+
     return (
       <div
         className="modal fade show popup"
@@ -91,7 +83,7 @@ function App() {
         <div className="modal-dialog" role="document">
           <div className="modal-content rounded-4 shadow">
             <div className="modal-header border-bottom-0">
-              <h1 className="modal-title fs-5">Demo</h1>
+              <h2 className="modal-title fs-5">{cocktail.cocktail.strDrink}</h2>
               <button
                 type="button"
                 className="btn-close"
@@ -101,11 +93,9 @@ function App() {
               ></button>
             </div>
             <div className="modal-body py-0">
-              <p>
-                This is a modal sheet, a variation of the modal that docs itself
-                to the bottom of the viewport like the newer share sheets in
-                iOS.
-              </p>
+              <ul className="ingredients-list">
+                <GetIngredients cocktail={cocktail.cocktail} />
+              </ul>
             </div>
           </div>
         </div>
@@ -115,43 +105,14 @@ function App() {
 
   const handleClickImg = (drinkID) => {
     tempDrink = drinkList.find((x) => x.idDrink === drinkID);
-    console.log(tempDrink);
     setCurrentDrink(tempDrink);
     setIsActive((current) => !current);
-
-    //assign to currentDrink check docu find or findFirst
-    //with current drink -> put into modal and display
   };
 
   const handleClick = () => {}; //tbc for new page with all details
 
   function CreateList() {
-    var ingredientsArray = [];
-
-    var ingredientObj = {};
     const cocktailList = drinkList?.map((drink) => {
-      for (var i = 1; i < 15; i++) {
-        var ingredient = `strIngredient${i}`;
-        var measurement = `strMeasure${i}`;
-
-        ingredientObj = {
-          ingredientName: drink[ingredient],
-          ingredientMeasurement: drink[measurement],
-        };
-
-        ingredientsArray.push(ingredientObj);
-
-        if (drink[ingredient] == null) {
-          ingredientsArray = [];
-          break;
-        }
-      }
-      /*          <ul className="Cocktail-List-Items">
-              <ListFromArray param={ingredientsArray} />
-            </ul>
-            this.state.seen ? <PopUp toggle={this.togglePop} /> : null}
-            <p className="Cocktail-Instructions">{drink.strInstructions}</p> */ // ingredients + instructions
-
       return (
         <div className="col" key={drink.idDrink}>
           <div className="card shadow-sm pt-3">
@@ -168,7 +129,6 @@ function App() {
                 }}
               ></image>
             </svg>
-
             <div className="card-body">
               <p className="card-text">{drink.strDrink}</p>
               <p className="card-text CardText">
@@ -187,11 +147,9 @@ function App() {
         </div>
       );
     });
-    ingredientsArray = [];
+
     return cocktailList;
   }
-
-  console.log(currentDrink);
 
   return (
     <div className="App">

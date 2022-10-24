@@ -28,8 +28,13 @@
   color: white;
 }
 
+.ingredients-list{
+  list-style: none;
+  float:left;
+}
+
 .previewText{
-  font-size:small
+  font-size:small;
 }
 
 image {

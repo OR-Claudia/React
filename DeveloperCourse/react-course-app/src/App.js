@@ -14,6 +14,7 @@ const App = () => {
   //react keeps a reference of the functional component (runs top to bottom)
 
   const [searchField, setSearchField] = useState(""); //[value=to be stored, setFunction], one single value
+  const [title, setTitle] = useState("");
   const [monsters, setMonsters] = useState([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
   console.log("render");
@@ -33,6 +34,11 @@ const App = () => {
     setSearchField(searchFieldString);
   };
 
+  const onTitleChange = (event) => {
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    setTitle(searchFieldString);
+  };
+
   useEffect(() => {
     const newFilteredMonsters = monsters.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
@@ -45,12 +51,18 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="app-title">Monster Rolodex</h1>
+      <h1 className="app-title">{title}</h1>
 
       <SearchBox
         onChangeHandler={onSearchChange}
         placeholder="search monsters"
         className="monsters-search-box"
+      />
+      <br />
+      <SearchBox
+        onChangeHandler={onTitleChange}
+        placeholder="set title"
+        className="title-search-box"
       />
       <CardList monsters={filteredMonsters} />
     </div>

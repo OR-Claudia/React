@@ -7,66 +7,66 @@ import "./App.css";
 const url = "https://jsonplaceholder.typicode.com/users";
 
 const App = () => {
-  console.log("render");
-  //functional component skeleton - does not have lifecycles!
-  //props are taken from params
-  //no constructor, no class
-  //react keeps a reference of the functional component (runs top to bottom)
+	console.log("render");
+	//functional component skeleton - does not have lifecycles!
+	//props are taken from params
+	//no constructor, no class
+	//react keeps a reference of the functional component (runs top to bottom)
 
-  const [searchField, setSearchField] = useState(""); //[value=to be stored, setFunction], one single value
-  const [title, setTitle] = useState("");
-  const [monsters, setMonsters] = useState([]);
-  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
-  console.log("render");
+	const [searchField, setSearchField] = useState(""); //[value=to be stored, setFunction], one single value
+	const [title, setTitle] = useState("");
+	const [monsters, setMonsters] = useState([]);
+	const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+	console.log("render");
 
-  //useEffect(callback(), dependencies)
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((users) => setMonsters(users));
-  }, []);
-  //keep the 2nd prop empty if it only runs once - no dependecies, no trigger for rerunning function
+	//useEffect(callback(), dependencies)
+	useEffect(() => {
+		fetch(url)
+			.then((res) => res.json())
+			.then((users) => setMonsters(users));
+	}, []);
+	//keep the 2nd prop empty if it only runs once - no dependecies, no trigger for rerunning function
 
-  //componentDidMount the first time the app is rendered - happens only once
+	//componentDidMount the first time the app is rendered - happens only once
 
-  const onSearchChange = (event) => {
-    const searchFieldString = event.target.value.toLocaleLowerCase();
-    setSearchField(searchFieldString);
-  };
+	const onSearchChange = (event) => {
+		const searchFieldString = event.target.value.toLocaleLowerCase();
+		setSearchField(searchFieldString);
+	};
 
-  const onTitleChange = (event) => {
-    const searchFieldString = event.target.value.toLocaleLowerCase();
-    setTitle(searchFieldString);
-  };
+	const onTitleChange = (event) => {
+		const searchFieldString = event.target.value.toLocaleLowerCase();
+		setTitle(searchFieldString);
+	};
 
-  useEffect(() => {
-    const newFilteredMonsters = monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(searchField);
-    });
+	useEffect(() => {
+		const newFilteredMonsters = monsters.filter((monster) => {
+			return monster.name.toLocaleLowerCase().includes(searchField);
+		});
 
-    setFilteredMonsters(newFilteredMonsters);
+		setFilteredMonsters(newFilteredMonsters);
 
-    console.log("effect");
-  }, [monsters, searchField]);
+		console.log("effect");
+	}, [monsters, searchField]);
 
-  return (
-    <div className="App">
-      <h1 className="app-title">{title}</h1>
+	return (
+		<div className="App">
+			<h1 className="app-title">{title}</h1>
 
-      <SearchBox
-        onChangeHandler={onSearchChange}
-        placeholder="search monsters"
-        className="monsters-search-box"
-      />
-      <br />
-      <SearchBox
-        onChangeHandler={onTitleChange}
-        placeholder="set title"
-        className="title-search-box"
-      />
-      <CardList monsters={filteredMonsters} />
-    </div>
-  );
+			<SearchBox
+				onChangeHandler={onSearchChange}
+				placeholder="search monsters"
+				className="monsters-search-box"
+			/>
+			<br />
+			<SearchBox
+				onChangeHandler={onTitleChange}
+				placeholder="set title"
+				className="title-search-box"
+			/>
+			<CardList monsters={filteredMonsters} />
+		</div>
+	);
 };
 
 // class App extends Component {
